@@ -1,23 +1,39 @@
 import React from "react";
-import { StyleSheet, Text, View, ImageBackground } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  SafeAreaView,
+  TouchableOpacity
+} from "react-native";
+import Signup from "./signup.js";
+import Login from "./login.js";
 
 export default function Welcome() {
+  const [num, setNum] = React.useState(1);
   return (
     <ImageBackground
       source={require("../assets/friends.jpg")}
       style={styles.image}
     >
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.text2}>Clique</Text>
-        </View>
-        <View style={styles.sign}>
-          <Text style={styles.text}>Login</Text>
-        </View>
-        <View style={styles.register}>
-          <Text style={styles.text}>Sign Up</Text>
-        </View>
-      </View>
+      {num === 1 ? (
+        <SafeAreaView style={styles.container}>
+          <View style={styles.header}>
+            <Text style={styles.text2}>Clique</Text>
+          </View>
+          <TouchableOpacity onPress={() => setNum(3)} style={styles.sign}>
+            <Text style={styles.text}>Login</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setNum(2)} style={styles.register}>
+            <Text style={styles.text}>Sign Up</Text>
+          </TouchableOpacity>
+        </SafeAreaView>
+      ) : num === 2 ? (
+        <Signup />
+      ) : (
+        <Login />
+      )}
     </ImageBackground>
   );
 }
@@ -49,14 +65,12 @@ const styles = StyleSheet.create({
   text2: {
     alignSelf: "center",
     fontSize: 50,
-    margin: 50
+    margin: 100
   },
   header: {
     flex: 1
   },
   image: {
     flex: 1
-    // resizeMode: "cover",
-    // justifyContent: "center"
   }
 });
