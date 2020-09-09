@@ -4,10 +4,11 @@ import {
   TouchableOpacity,
   Text,
   SafeAreaView,
-  TextInput
+  TextInput,
+  Button
 } from "react-native";
 
-export default function Signup() {
+export default function Signup(props) {
   const [email, changeEmail] = React.useState("");
   const [password, changePW] = React.useState("");
   const [pw, changePW2] = React.useState("");
@@ -17,26 +18,27 @@ export default function Signup() {
         onChangeText={text => changeEmail(text)}
         value={email}
         style={styles.email}
-        placeholder="Email"
+        placeholder="   Email"
       ></TextInput>
       <TextInput
         onChangeText={text => changePW(text)}
         value={password}
         style={styles.email}
-        placeholder="Password"
+        placeholder="   Password"
       ></TextInput>
       <TextInput
         onChangeText={text => changePW2(text)}
         value={pw}
         style={styles.email}
-        placeholder="Confirm-Password"
+        placeholder="   Confirm-Password"
       ></TextInput>
       <TouchableOpacity
-        onPress={() => console.log(email, password)}
+        onPress={() => props.signup(email, password, pw)}
         style={styles.button}
       >
         <Text style={styles.text}>Sign Up</Text>
       </TouchableOpacity>
+      <Button title="Login" onPress={() => props.setNum(3)} color="red" />
     </SafeAreaView>
   );
 }
