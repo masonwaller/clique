@@ -7,7 +7,7 @@ export default function App() {
   const [signed, setSigned] = React.useState(false);
   return (
     <View style={styles.container}>
-      <Welcome></Welcome>
+      {signed ? <View /> : <Welcome setSigned={setSigned} />}
     </View>
   );
 }

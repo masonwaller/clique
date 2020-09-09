@@ -4,10 +4,11 @@ import {
   TouchableOpacity,
   Text,
   SafeAreaView,
-  TextInput
+  TextInput,
+  Button
 } from "react-native";
 
-export default function Login() {
+export default function Login(props) {
   const [email, changeEmail] = React.useState("");
   const [password, changePW] = React.useState("");
   return (
@@ -16,20 +17,21 @@ export default function Login() {
         onChangeText={text => changeEmail(text)}
         value={email}
         style={styles.email}
-        placeholder="Email"
+        placeholder="   Email"
       ></TextInput>
       <TextInput
         onChangeText={text => changePW(text)}
         value={password}
         style={styles.email}
-        placeholder="Password"
+        placeholder="   Password"
       ></TextInput>
       <TouchableOpacity
-        onPress={() => console.log(email, password)}
+        onPress={() => props.login(email, password)}
         style={styles.button}
       >
         <Text style={styles.text}>Login</Text>
       </TouchableOpacity>
+      <Button title="Sign Up" onPress={() => props.setNum(2)} color="red" />
     </SafeAreaView>
   );
 }

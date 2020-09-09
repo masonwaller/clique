@@ -5,13 +5,57 @@ import {
   View,
   ImageBackground,
   SafeAreaView,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from "react-native";
 import Signup from "./signup.js";
 import Login from "./login.js";
 
-export default function Welcome() {
+export default function Welcome(props) {
   const [num, setNum] = React.useState(1);
+
+  const signup = (email, password, pw2) => {
+    if (password !== pw2) {
+      Alert.alert("Passwords don't match");
+    } else {
+      fetch("http://127.0.0.1:3000/users", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          user: {
+            email: email,
+            password: password
+          }
+        })
+      })
+        .then(res => res.json())
+        .then(res => props.setSigned(res));
+    }
+  };
+  const login = (email, password) => {
+    fetch(`http://127.0.0.1:3000/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify({
+        user: {
+          email: email,
+          password: password
+        }
+      })
+    })
+      .then(res => res.json())
+      .then(res =>
+        res.message
+          ? Alert.alert("Email or password incorrect")
+          : props.setSigned(res)
+      );
+  };
   return (
     <ImageBackground
       source={require("../assets/friends.jpg")}
@@ -30,9 +74,9 @@ export default function Welcome() {
           </TouchableOpacity>
         </SafeAreaView>
       ) : num === 2 ? (
-        <Signup />
+        <Signup setNum={setNum} signup={signup} />
       ) : (
-        <Login />
+        <Login setNum={setNum} login={login} />
       )}
     </ImageBackground>
   );
