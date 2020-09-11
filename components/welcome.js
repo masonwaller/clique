@@ -14,7 +14,7 @@ import Login from "./login.js";
 export default function Welcome(props) {
   const [num, setNum] = React.useState(1);
 
-  const signup = (email, password, pw2) => {
+  const signup = (email, password, pw2, name, bio, age, job, school) => {
     if (password !== pw2) {
       Alert.alert("Passwords don't match");
     } else {
@@ -27,7 +27,12 @@ export default function Welcome(props) {
         body: JSON.stringify({
           user: {
             email: email,
-            password: password
+            password: password,
+            name: name,
+            bio: bio,
+            age: age,
+            job: job,
+            school: school
           }
         })
       })
