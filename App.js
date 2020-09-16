@@ -13,6 +13,7 @@ export default function App() {
       .then(data => setCat(data.categories))
       .catch(error => console.error(error));
   }, []);
+
   return (
     <View style={styles.container}>
       {signed ? <Home cat={cat} /> : <Welcome setSigned={setSigned} />}

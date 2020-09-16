@@ -1,17 +1,18 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Dimensions } from "react-native";
 
+const { width, height } = Dimensions.get("window");
 export default function home(props) {
   return (
     <View style={styles.card}>
-      <Text style={styles.text}>{props.cat.name}</Text>
+      <Text style={styles.text}>{props.cat}</Text>
     </View>
   );
 }
 const styles = StyleSheet.create({
   card: {
-    width: "90%",
-    height: "20%",
+    width: width * 0.8,
+    height: height * 0.2,
     justifyContent: "center",
     backgroundColor: "yellow",
     alignSelf: "center",
