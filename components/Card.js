@@ -1,18 +1,29 @@
 import React from "react";
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  TouchableOpacity
+} from "react-native";
 
 const { width, height } = Dimensions.get("window");
 export default function home(props) {
   return (
     <View style={styles.card}>
-      <Text style={styles.text}>{props.cat}</Text>
+      <TouchableOpacity
+        onPress={() => props.changeDisplay(props.cat.id)}
+        style={styles.opacity}
+      >
+        <Text style={styles.text}>{props.cat.name}</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 const styles = StyleSheet.create({
   card: {
     width: width * 0.8,
-    height: height * 0.2,
+    height: height * 0.1,
     justifyContent: "center",
     backgroundColor: "yellow",
     alignSelf: "center",
@@ -21,5 +32,9 @@ const styles = StyleSheet.create({
   },
   text: {
     alignSelf: "center"
+  },
+  opacity: {
+    justifyContent: "center",
+    flex: 1
   }
 });

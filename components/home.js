@@ -8,20 +8,25 @@ import {
   FlatList
 } from "react-native";
 import Card from "./Card.js";
+import Category from "./Category.js";
 
 export default function home(props) {
-  const arrowFunc = ({ item }) => <Card cat={item.name} />;
+  const [display, changeDisplay] = React.useState(0);
+  const arrowFunc = ({ item }) => (
+    <Card cat={item} changeDisplay={changeDisplay} />
+  );
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <FlatList
-        data={props.cat}
-        renderItem={arrowFunc}
-        keyExtractor={item => item.id}
-        style={styles.view}
-      />
-      {/* {props.cat.map(categ => {
-          return <Card cat={categ.name} key={categ.id} />;
-        })} */}
+      {display === 0 ? (
+        <FlatList
+          data={props.cat}
+          renderItem={arrowFunc}
+          keyExtractor={item => item.id.toString()}
+          style={styles.view}
+        />
+      ) : (
+        <Category cat={props.cat[display - 1]} changeDisplay={changeDisplay} />
+      )}
     </SafeAreaView>
   );
 }
