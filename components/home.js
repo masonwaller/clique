@@ -4,20 +4,24 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ScrollView,
-  Dimensions,
-  View
+  View,
+  FlatList
 } from "react-native";
 import Card from "./Card.js";
 
 export default function home(props) {
-  const windowHeight = Dimensions.get("window").height - 50;
+  const arrowFunc = ({ item }) => <Card cat={item.name} />;
   return (
-    <SafeAreaView style={{ flex: 1, maxHeight: windowHeight }}>
-      <ScrollView style={styles.view}>
-        {props.cat.map(categ => {
+    <SafeAreaView style={{ flex: 1 }}>
+      <FlatList
+        data={props.cat}
+        renderItem={arrowFunc}
+        keyExtractor={item => item.id}
+        style={styles.view}
+      />
+      {/* {props.cat.map(categ => {
           return <Card cat={categ.name} key={categ.id} />;
-        })}
-      </ScrollView>
+        })} */}
     </SafeAreaView>
   );
 }
