@@ -25,7 +25,13 @@ export default function home(props) {
           style={styles.view}
         />
       ) : (
-        <Category cat={props.cat[display - 1]} changeDisplay={changeDisplay} />
+        <Category
+          usercat={props.usercat}
+          setUsercat={props.setUsercat}
+          cat={props.cat[display - 1]}
+          changeDisplay={changeDisplay}
+          signed={props.signed}
+        />
       )}
     </SafeAreaView>
   );
