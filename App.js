@@ -7,16 +7,34 @@ import Home from "./components/home.js";
 export default function App() {
   const [signed, setSigned] = React.useState(false);
   const [cat, setCat] = React.useState([]);
+  const [usercat, setUsercat] = React.useState([]);
   useEffect(() => {
     fetch("http://127.0.0.1:3000/categories")
       .then(data => data.json())
       .then(data => setCat(data.categories))
       .catch(error => console.error(error));
   }, []);
-
+  useEffect(() => {
+    if (signed) {
+      let placeholder = [];
+      for (let i = 0; i < signed.user.user_categories.length; i++) {
+        placeholder.push(signed.user.user_categories[i].category_id);
+      }
+      setUsercat(placeholder);
+    }
+  }, [signed]);
   return (
     <View style={styles.container}>
-      {signed ? <Home cat={cat} /> : <Welcome setSigned={setSigned} />}
+      {signed ? (
+        <Home
+          cat={cat}
+          signed={signed}
+          usercat={usercat}
+          setUsercat={setUsercat}
+        />
+      ) : (
+        <Welcome setSigned={setSigned} />
+      )}
     </View>
   );
 }
