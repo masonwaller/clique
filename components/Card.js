@@ -12,7 +12,11 @@ export default function home(props) {
   return (
     <View style={styles.card}>
       <TouchableOpacity
-        onPress={() => props.changeDisplay(props.cat.id)}
+        onPress={() =>
+          props.changeDisplay(
+            props.categories.findIndex(item => item.name === props.cat.name) + 1
+          )
+        }
         style={styles.opacity}
       >
         <Text style={styles.text}>{props.cat.name}</Text>

@@ -15,14 +15,20 @@ export default function App() {
       .catch(error => console.error(error));
   }, []);
   useEffect(() => {
+    console.log(signed);
     if (signed) {
-      let placeholder = [];
-      for (let i = 0; i < signed.user.user_categories.length; i++) {
-        placeholder.push(signed.user.user_categories[i].category_id);
+      if (signed.user.user_categories) {
+        let placeholder = [];
+        for (let i = 0; i < signed.user.user_categories.length; i++) {
+          placeholder.push(signed.user.user_categories[i].category_id);
+        }
+        setUsercat(placeholder);
       }
-      setUsercat(placeholder);
     }
   }, [signed]);
+  useEffect(() => {
+    console.log(usercat);
+  }, [usercat]);
   return (
     <View style={styles.container}>
       {signed ? (
@@ -31,6 +37,7 @@ export default function App() {
           signed={signed}
           usercat={usercat}
           setUsercat={setUsercat}
+          setSigned={setSigned}
         />
       ) : (
         <Welcome setSigned={setSigned} />

@@ -4,6 +4,26 @@ import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
 export default function Category(props) {
   const join = () => {
     if (props.usercat.includes(props.cat.id)) {
+      fetch(
+        `http://127.0.0.1:3000/user_categories/${
+          props.signed.user.user_categories.find(
+            item => item.category_id === props.cat.id
+          ).id
+        }`,
+        {
+          method: "DELETE",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          }
+        }
+      );
+      let place = props.usercat;
+      place.splice(
+        props.usercat.findIndex(item => item === props.cat.id),
+        1
+      );
+      props.setUsercat(place);
     } else {
       fetch("http://127.0.0.1:3000/user_categories", {
         method: "POST",
@@ -19,10 +39,7 @@ export default function Category(props) {
         })
       })
         .then(res => res.json())
-        .then(res => console.log(res));
-      let placeholder = props.usercat;
-      placeholder.push(props.cat.id);
-      setUsercat(placeholder);
+        .then(res => props.setSigned(res));
     }
   };
   return (
