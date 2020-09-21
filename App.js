@@ -26,9 +26,6 @@ export default function App() {
       }
     }
   }, [signed]);
-  useEffect(() => {
-    console.log(usercat);
-  }, [usercat]);
   return (
     <View style={styles.container}>
       {signed ? (
