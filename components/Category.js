@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, TouchableOpacity, View, Text } from "react-native";
+import Profile from "./Profile.js";
+import { setStatusBarNetworkActivityIndicatorVisible } from "expo-status-bar";
 
 export default function Category(props) {
+  const [users, setUsers] = React.useState([]);
+  useEffect(() => {
+    fetch(`http://127.0.0.1:3000/categories/${props.cat.id}`)
+      .then(res => res.json())
+      .then(res => setUsers(res.category.users));
+  }, []);
   const join = () => {
     if (props.usercat.includes(props.cat.id)) {
       fetch(
@@ -52,6 +60,7 @@ export default function Category(props) {
           {props.usercat.includes(props.cat.id) ? "Leave Group" : "Join Group"}
         </Text>
       </TouchableOpacity>
+      <Profile user={users[0]} />
       <TouchableOpacity
         onPress={() => props.changeDisplay(0)}
         style={styles.button}
