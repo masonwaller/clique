@@ -10,15 +10,19 @@ export default function Profile(props) {
         {props.user ? props.user.name : "Loading Users"}
       </Text>
       <Text style={styles.job}>
-        {props.user.school
-          ? props.user.job
-            ? `${props.user.school}       ${props.user.job}`
-            : `${props.user.school}`
-          : props.user.job
-          ? `${props.user.job}`
-          : null}
+        {props.user
+          ? props.user.school
+            ? props.user.job
+              ? `${props.user.school}       ${props.user.job}`
+              : `${props.user.school}`
+            : props.user.job
+            ? `${props.user.job}`
+            : null
+          : "Loading Content"}
       </Text>
-      <Text style={styles.bio}>{props.user.bio ? props.user.bio : null}</Text>
+      <Text style={styles.bio}>
+        {props.user ? (props.user.bio ? props.user.bio : null) : "Loading Bio"}
+      </Text>
     </View>
   );
 }
