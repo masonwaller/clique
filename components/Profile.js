@@ -1,5 +1,11 @@
 import React from "react";
-import { View, StyleSheet, Text, Dimensions } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Dimensions,
+  TouchableOpacity
+} from "react-native";
 
 const { width, height } = Dimensions.get("window");
 
@@ -23,6 +29,14 @@ export default function Profile(props) {
       <Text style={styles.bio}>
         {props.user ? (props.user.bio ? props.user.bio : null) : "Loading Bio"}
       </Text>
+      <View style={styles.buttons}>
+        <TouchableOpacity style={styles.button}>
+          <Text>Like</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button}>
+          <Text>Nope</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -48,5 +62,16 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     fontSize: 20,
     marginTop: 5
+  },
+  buttons: {
+    position: "absolute",
+    width: "100%",
+    bottom: 5,
+    flexDirection: "row",
+    justifyContent: "space-around"
+  },
+  button: {
+    fontSize: 20,
+    margin: 15
   }
 });
